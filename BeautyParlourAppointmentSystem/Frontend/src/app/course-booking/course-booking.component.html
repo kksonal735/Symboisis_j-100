@@ -1,0 +1,79 @@
+<header>
+  <div class="header-container">
+    <h1>Book Your Course</h1>
+    <nav>
+      <a routerLink="/frontpage">Home</a>
+      <a routerLink="/logout">Logout</a>
+      <span class="welcome-message">Hello, {{ userName }}</span>
+    </nav>
+  </div>
+</header>
+
+<main class="main-container">
+  <section class="form-section">
+    <h2>Enroll in a Course</h2>
+    <form (ngSubmit)="onSubmit()" #courseForm="ngForm" class="course-form">
+     
+      <div class="form-group">
+        <label for="email">Enter your Email:</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          [(ngModel)]="email" 
+          required 
+          placeholder="example@domain.com">
+      </div>
+
+    
+      <div class="form-group">
+        <label for="courseSelect">Select a Course:</label>
+        <select 
+          id="courseSelect" 
+          name="course" 
+          [(ngModel)]="selectedCourse" 
+          (change)="displayPrice()" 
+          required>
+          <option value="" disabled>-- Select a Course --</option>
+          <option *ngFor="let course of courses" [value]="course.name">
+            {{ course.name }}
+          </option>
+        </select>
+      </div>
+
+    
+      <div *ngIf="selectedCourse" class="price-info">
+        <p><strong>Price:</strong> {{ selectedCoursePrice }}</p>
+      </div>
+
+     
+      <div class="form-group">
+        <label>
+          <input type="checkbox" required>
+          I agree to the 
+          <a href="#" class="terms-link">Terms and Conditions</a>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <button 
+          type="submit" 
+          class="submit-button" 
+          [disabled]="!courseForm.form.valid">
+          Book Course
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section class="image-section">
+    <img src="assets/BookingCourse.jpg" alt="Course illustration" />
+  </section>
+</main>
+
+<footer>
+  <div class="footer-container">
+    <p>&copy; 2024 Unique Creations Academy. All rights reserved.</p>
+  </div>
+</footer>
+
